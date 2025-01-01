@@ -1,5 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose')
+// export todoHandler 
+const todoHandler = require("./routeHandler/todoHandler")
+
+
 
 const app = express();
 app.use(express.json());
@@ -10,11 +14,7 @@ const port = 9000
 // database connect in db
 const connectDB = async()=>{
     try{
-        await mongoose.connect('mongodb://127.0.0.1:27017/todos',{
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-
-        })
+        await mongoose.connect('mongodb://127.0.0.1:27017/todos',)
         console.log('db is connected');
     }
     catch(err){
@@ -25,9 +25,9 @@ const connectDB = async()=>{
 
 
 
-app.get('/',(req,res)=>{
-    res.send(`server running this ${port} port`)
-})
+
+
+app.use('/todo',todoHandler)
 
 app.listen(port,async()=>{
     console.log(`server running this ${port} port`);
